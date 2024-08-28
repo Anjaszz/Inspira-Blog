@@ -1,4 +1,5 @@
-
+import "react-toastify/dist/ReactToastify.css"
+import { ToastContainer } from "react-toastify"
 import { Routes,Route } from 'react-router-dom'
 import { PublicLayout } from './components/layout/PublicLayout'
 import { PrivateLayout } from './components/layout/PrivateLayout'
@@ -14,21 +15,27 @@ function App() {
  
 
   return (
-   <Routes>
-    <Route element={<PrivateLayout/>}>
-    <Route path='/' element={<Home/>} />
-    <Route path='category' element={<CatList/>} />
-    <Route path='post' element={<PostList/>} />
-    <Route path='profile' element={<Profile/>} />
-    <Route path='setting' element={<Setting/>} />
-    </Route>
+    <>
+     <Routes>
 
-    <Route element={<PublicLayout/>}>
-    <Route path='login' element={<Login/>} />
-    <Route path='signup' element={<Signup/>} />
+<Route element={<PrivateLayout/>}>
+<Route path='/' element={<Home/>} />
+<Route path='category' element={<CatList/>} />
+<Route path='post' element={<PostList/>} />
+<Route path='profile' element={<Profile/>} />
+<Route path='setting' element={<Setting/>} />
+</Route>
 
-    </Route>
-   </Routes>
+<Route element={<PublicLayout/>}>
+
+<Route path='login' element={<Login/>} />
+<Route path='signup' element={<Signup/>} />
+</Route>
+
+</Routes>
+<ToastContainer/>
+    </>
+  
   )
 }
 

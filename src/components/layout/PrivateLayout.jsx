@@ -2,7 +2,7 @@
 import { Navigate,Outlet } from "react-router-dom"
 import { PrivateNavbar } from "../PrivateNavbar"
 export const PrivateLayout = () => {
-    const auth = true;
+    const auth = false ;
 
     if(!auth){
         return <Navigate to="/login" />
