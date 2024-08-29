@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-const UpdateCategory = () => {
+export const UpdateCategory = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 relative">
@@ -48,4 +48,4 @@ const UpdateCategory = () => {
   );
 };
 
-export default UpdateCategory;
+

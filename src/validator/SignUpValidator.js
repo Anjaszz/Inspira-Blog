@@ -2,7 +2,7 @@
 
 const initialFormError = { name: "", email: "", password: "", confirmPassword: "" };
 
-export const formValidator = (formData) => {
+export const SignupValidator = (formData) => {
   let errors = { ...initialFormError };
   let isValid = true;
 
