@@ -1,6 +1,16 @@
-import { NavLink } from "react-router-dom"
-
+import { NavLink, useNavigate } from "react-router-dom"
+import { toast } from "react-toastify";
 export const PrivateNavbar = () => {
+const navigate = useNavigate();
+  const handleLogout = () => {
+    window.localStorage.removeItem("BlogData");
+    toast.success("Logout Berhasil", {
+      position: toast.TOP_RIGHT,
+      autoClose: true,
+    });
+    navigate("/login")
+  }
+
   return (
     <nav className="bg-white shadow-lg p-4 flex justify-between items-center">
     <div className="text-2xl font-semibold text-gray-800">
@@ -14,7 +24,7 @@ export const PrivateNavbar = () => {
         Home
       </NavLink>
       <NavLink 
-        to="/category" 
+        to="/categories" 
         className="text-gray-700 hover:text-indigo-500 transition duration-300"
       >
         Kategori
@@ -40,6 +50,7 @@ export const PrivateNavbar = () => {
       <NavLink 
         to="/login" 
         className="text-gray-700 hover:text-indigo-500 transition duration-300"
+        onClick={handleLogout}
       >
         Logout
       </NavLink>

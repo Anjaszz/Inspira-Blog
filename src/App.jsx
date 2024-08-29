@@ -10,6 +10,8 @@ import { Profile } from './pages/Profile'
 import { Setting } from './pages/Setting'
 import { Signup } from './pages/Signup'
 import { Login } from './pages/Login'
+import { NewCategory } from "./pages/category/NewCat"
+import { UpdateCategory } from "./pages/category/UpdateCat"
 
 function App() {
  
@@ -20,7 +22,9 @@ function App() {
 
 <Route element={<PrivateLayout/>}>
 <Route path='/' element={<Home/>} />
-<Route path='category' element={<CatList/>} />
+<Route path='categories' element={<CatList/>} />
+<Route path="categories/new-category" element={<NewCategory/>} />
+<Route path="categories/update-category" element={<UpdateCategory/>} />
 <Route path='post' element={<PostList/>} />
 <Route path='profile' element={<Profile/>} />
 <Route path='setting' element={<Setting/>} />

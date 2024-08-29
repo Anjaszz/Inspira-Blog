@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-const NewCategory = () => {
+const UpdateCategory = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 relative">
@@ -15,7 +15,7 @@ const NewCategory = () => {
       </button>
       <div className="bg-white shadow-md rounded-lg w-full max-w-lg p-6">
         <form className="space-y-6">
-          <h2 className="text-2xl font-semibold text-gray-800">New Category</h2>
+          <h2 className="text-2xl font-semibold text-gray-800">Update Category</h2>
           <div className="space-y-2">
             <label className="block text-gray-700">Title</label>
             <input
@@ -39,7 +39,7 @@ const NewCategory = () => {
             <input
               className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
               type="submit"
-              value="Add"
+              value="Update"
             />
           </div>
         </form>
@@ -48,4 +48,4 @@ const NewCategory = () => {
   );
 };
 
-export default NewCategory;
+export default UpdateCategory;
