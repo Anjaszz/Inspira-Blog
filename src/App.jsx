@@ -12,6 +12,9 @@ import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
 import { NewCategory } from "./pages/category/NewCategory";
 import { UpdateCategory } from "./pages/category/UpdateCat";
+import { NewPost } from "./pages/posts/NewPost";
+import { UpdatePost } from "./pages/posts/UpdatePost";
+import { DetailPost } from "./pages/posts/DetailPost";
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path="categories/new-category" element={<NewCategory />} />
           <Route path="categories/update-category/:id" element={<UpdateCategory />} />
           <Route path="post" element={<PostList />} />
+          <Route path="post/new-post" element={<NewPost />} />
+          <Route path="post/detail-post" element={<DetailPost />} />
+          <Route path="post/update-post" element={<UpdatePost />} />
           <Route path="profile" element={<Profile />} />
           <Route path="setting" element={<Setting />} />
         </Route>

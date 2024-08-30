@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import  axios from "../../utils/AxiosInstances";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { AddCatValidator } from "../../validator/AddCatValidator";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const initialFormData = {title:"", desc:""};
 const initialFormError = {title:""};

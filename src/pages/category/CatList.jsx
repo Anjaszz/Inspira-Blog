@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faEdit, faTrash, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEdit, faTrash, faArrowLeft, faArrowRight,faSearch } from "@fortawesome/free-solid-svg-icons";
 import  axios from "../../utils/AxiosInstances";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -112,95 +112,97 @@ setPageCount(tempPageCount)
   }
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="mb-4 flex justify-between items-center">
-        <button
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition flex items-center"
-          onClick={() => navigate("new-category")}
-        >
-          <FontAwesomeIcon icon={faPlus} className="mr-2" />
-          Add New Category
-        </button>
+    <div className="p-6 bg-[#FAF3E0] min-h-screen">
+    <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
+      <button
+        className="bg-[#379777] text-white py-2 px-4 rounded-xl hover:bg-[#31886b] transition flex items-center w-2/5 sm:w-auto"
+        onClick={() => navigate("new-category")}
+      >
+        <FontAwesomeIcon icon={faPlus} className="mr-2" />
+        Tambah Kategori
+      </button>
+      
+      <div className="flex items-center border border-gray-300 rounded-lg w-full max-w-md sm:max-w-xs">
+        <FontAwesomeIcon icon={faSearch} className="text-gray-400 mx-3" />
         <input
-          className="border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full py-2 px-4 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           type="text"
           name="search"
           placeholder="Search here"
           onChange={handleSearch}
         />
       </div>
+    </div>
 
-      <h2 className="text-2xl font-semibold text-gray-700 mb-4">Category List</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Category List</h2>
 
-      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
-       {Loading ? "Loading..." : (
-         <table className="w-full text-left border-collapse">
-         <thead>
-           <tr className="bg-blue-100 text-black uppercase text-sm leading-normal">
-             <th className="py-3 px-6">Title</th>
-             <th className="py-3 px-6">Description</th>
-             <th className="py-3 px-6">Created At</th>
-             <th className="py-3 px-6">Updated At</th>
-             <th className="py-3 px-6">Action</th>
-           </tr>
-         </thead>
-         <tbody className="text-gray-600 text-sm font-light">
-           {categories.map((category) => (
-             <tr key={category._id} className="border-b border-gray-200 hover:bg-gray-100">
-               <td className="py-3 px-6">{category.title}</td>
-               <td className="py-3 px-6">{category.desc}</td>
-               <td className="py-3 px-6">{moment(category.createdAt).format('YYYY-MM-DD-HH:mm:ss')}</td>
-               <td className="py-3 px-6">{moment(category.updatedAt).format('YYYY-MM-DD-HH:mm:ss')}</td>
-               <td className="py-3 px-6 flex space-x-2">
-                 <button
-                   className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition flex items-center"
-                   onClick={() => navigate(`update-category/${category._id}`)}
-
-                 >
-                   <FontAwesomeIcon icon={faEdit} className="mr-1" />
-                   Update
-                 </button>
-                 <button className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition flex items-center" onClick={() => {openModal(category),setCategoryId(category._id)}}>
-                   <FontAwesomeIcon icon={faTrash} className="mr-1" />
-                   Delete
-                 </button>
-                 
-               </td>
-             </tr>
-           ))}
-         </tbody>
-       </table>
-       )}
-        {pageCount.length > 0 &&  (
-        <div className="flex justify-center mt-6 space-x-2">
-        <button className="bg-gray-200 text-gray-600 py-2 px-4 rounded hover:bg-gray-300 transition flex items-center" disabled={currentPage === 1} onClick={handlePrev}>
-          <FontAwesomeIcon icon={faArrowLeft} className="mr-1" />
-          Prev
+      <div className="overflow-x-auto bg-beige shadow-md rounded-lg">
+  {Loading ? "Loading..." : (
+    <table className="w-full text-left border-collapse">
+      <thead>
+        <tr className="bg-peach text-black uppercase text-sm">
+          <th className="py-3 px-6">Title</th>
+          <th className="py-3 px-6">Description</th>
+          <th className="py-3 px-6">Created At</th>
+          <th className="py-3 px-6">Updated At</th>
+          <th className="py-3 px-6">Action</th>
+        </tr>
+      </thead>
+      <tbody className="text-gray-600 text-md font-normal">
+        {categories.map((category) => (
+          <tr key={category._id} className="border-b border-gray-200 hover:bg-gray-100">
+            <td className="py-3 px-6">{category.title}</td>
+            <td className="py-3 px-6">{category.desc}</td>
+            <td className="py-3 px-6">{moment(category.createdAt).format('YYYY-MM-DD-HH:mm:ss')}</td>
+            <td className="py-3 px-6">{moment(category.updatedAt).format('YYYY-MM-DD-HH:mm:ss')}</td>
+            <td className="py-3 px-6 flex space-x-2">
+              <button
+                className="bg-mint text-white py-1 px-3 rounded hover:bg-mint-dark transition flex items-center"
+                onClick={() => navigate(`update-category/${category._id}`)}
+              >
+                <FontAwesomeIcon icon={faEdit} className="mr-1" />
+                Update
+              </button>
+              <button className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition flex items-center" onClick={() => {openModal(category), setCategoryId(category._id)}}>
+                <FontAwesomeIcon icon={faTrash} className="mr-1" />
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+  {pageCount.length > 0 && (
+    <div className="flex justify-center mt-6 space-x-2 mb-3">
+      <button className="bg-gray-200 text-gray-600 py-2 px-4 rounded hover:bg-gray-300 transition flex items-center" disabled={currentPage === 1} onClick={handlePrev}>
+        <FontAwesomeIcon icon={faArrowLeft} className="mr-1" />
+        Prev
+      </button>
+      {pageCount.map((pageNum, index) => (
+        <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+          key={index}
+          onClick={() => handlePage(pageNum)}
+          style={{
+            backgroundColor: currentPage === pageNum ? "#B2DFDB" : ""
+          }}
+        >
+          {pageNum}
         </button>
-       {pageCount.map((pageNum,index) =>(
-         <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition" 
-         key={index} 
-         onClick={() => handlePage(pageNum)}
-         style={{
-          backgroundColor: currentPage === pageNum ? "#ccc" : ""
-         }}
-         > 
-         {pageNum} 
-         </button>
-       ))}
-       
-        <button className="bg-gray-200 text-gray-600 py-2 px-4 rounded hover:bg-gray-300 transition flex items-center" disabled={currentPage === totalPage} onClick={handleNext}>
-          Next
-          <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
-        </button>
-      </div>
-    )}
-     <DeleteModal
-        isOpen={isModalOpen}
-        closeModal={closeModal}
-        deleteAction={deleteCategory}
-      />
-      </div>
+      ))}
+      <button className="bg-gray-200 text-gray-600 py-2 px-4 rounded hover:bg-gray-300 transition flex items-center" disabled={currentPage === totalPage} onClick={handleNext}>
+        Next
+        <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
+      </button>
+    </div>
+  )}
+  <DeleteModal
+    isOpen={isModalOpen}
+    closeModal={closeModal}
+    deleteAction={deleteCategory}
+  />
+</div>
+
 
    
     </div>

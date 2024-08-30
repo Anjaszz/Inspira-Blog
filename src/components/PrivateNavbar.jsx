@@ -20,7 +20,7 @@ export const PrivateNavbar = () => {
   return (
     <nav className="bg-white shadow-md p-4 flex justify-between items-center">
       <div className="text-2xl font-semibold text-gray-800">
-        <NavLink to="/">Logo</NavLink>
+        <NavLink to="/">InspiraBlog</NavLink>
       </div>
 
       {/* Hamburger Menu Button */}
