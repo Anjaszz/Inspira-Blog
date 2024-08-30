@@ -5,7 +5,7 @@ import  axios from "../../utils/AxiosInstances";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import moment from "moment/moment";
-
+import DeleteModal from "../../components/DeleteModal";
 
 export const CatList = () => {
   const navigate = useNavigate();
@@ -14,6 +14,34 @@ export const CatList = () => {
   const [totalPage,setTotalPage] = useState(1);
   const [currentPage, setcurrentPage] = useState(1)
   const [pageCount, setPageCount] = useState([]);
+  const [Search, setSearch] = useState("")
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categoryId, setCategoryId] = useState(null)
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const deleteCategory = async () => {
+    try{
+      const response = await axios.delete(`/category/${categoryId}`);
+      const data = response.data;
+      toast.success(data.message, {
+        position: toast.TOP_RIGHT,
+        autoClose: true,
+      });
+      getCategories();
+    } catch(error){
+     
+      const response = error.response;
+    const data = response.data;
+    toast.error(data.message, {
+      position: toast.TOP_RIGHT,
+      autoClose: true,
+    });
+    }
+    
+    closeModal();
+  };
 
   const handlePrev = () =>{
     setcurrentPage((prev) => prev - 1)
@@ -26,29 +54,29 @@ export const CatList = () => {
   const handlePage = (pageNum) =>{
     setcurrentPage(pageNum)
   }
-
-  useEffect(() =>{
-    const getCategories = async () =>{
+  const getCategories = async () =>{
      
-      try{
-        setLoading(true)
-        const response = await axios.get(`/category?page=${currentPage}`);
-        const data = response.data.data;
-        setTotalPage(data.pages)
-       
-        setCategoris(data.categories)
+    try{
+      setLoading(true)
+      const response = await axios.get(`/category?page=${currentPage}&q=${Search}`);
+      const data = response.data.data;
+      setTotalPage(data.pages)
+     
+      setCategoris(data.categories)
+      setLoading(false)
+      }
+      catch(error){
         setLoading(false)
-        }
-        catch(error){
-          setLoading(false)
-          const response = error.response;
-        const data = response.data;
-        toast.error(data.message, {
-          position: toast.TOP_RIGHT,
-          autoClose: true,
-        });
-        }
-      };
+        const response = error.response;
+      const data = response.data;
+      toast.error(data.message, {
+        position: toast.TOP_RIGHT,
+        autoClose: true,
+      });
+      }
+    };
+    
+  useEffect(() =>{
        getCategories();
   },[currentPage]);
 
@@ -64,7 +92,25 @@ setPageCount(tempPageCount)
     }
   },[totalPage])
 
-console.log(currentPage)
+  const handleSearch = async (e) =>{
+    const input = e.target.value
+    setSearch(input)
+    try{
+      const response = await axios.get(`/category?q=${input}&page=${currentPage}`)
+      const data = response.data.data
+      setCategoris(data.categories) 
+      setTotalPage(data.pages)
+    }catch(error){
+      setLoading(false)
+      const response = error.response;
+    const data = response.data;
+    toast.error(data.message, {
+      position: toast.TOP_RIGHT,
+      autoClose: true,
+    });
+    }
+  }
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="mb-4 flex justify-between items-center">
@@ -80,6 +126,7 @@ console.log(currentPage)
           type="text"
           name="search"
           placeholder="Search here"
+          onChange={handleSearch}
         />
       </div>
 
@@ -89,7 +136,7 @@ console.log(currentPage)
        {Loading ? "Loading..." : (
          <table className="w-full text-left border-collapse">
          <thead>
-           <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+           <tr className="bg-blue-100 text-black uppercase text-sm leading-normal">
              <th className="py-3 px-6">Title</th>
              <th className="py-3 px-6">Description</th>
              <th className="py-3 px-6">Created At</th>
@@ -107,22 +154,24 @@ console.log(currentPage)
                <td className="py-3 px-6 flex space-x-2">
                  <button
                    className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition flex items-center"
-                   onClick={() => navigate("update-category")}
+                   onClick={() => navigate(`update-category/${category._id}`)}
+
                  >
                    <FontAwesomeIcon icon={faEdit} className="mr-1" />
                    Update
                  </button>
-                 <button className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition flex items-center">
+                 <button className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition flex items-center" onClick={() => {openModal(category),setCategoryId(category._id)}}>
                    <FontAwesomeIcon icon={faTrash} className="mr-1" />
                    Delete
                  </button>
+                 
                </td>
              </tr>
            ))}
          </tbody>
        </table>
        )}
-        {pageCount.length &&  (
+        {pageCount.length > 0 &&  (
         <div className="flex justify-center mt-6 space-x-2">
         <button className="bg-gray-200 text-gray-600 py-2 px-4 rounded hover:bg-gray-300 transition flex items-center" disabled={currentPage === 1} onClick={handlePrev}>
           <FontAwesomeIcon icon={faArrowLeft} className="mr-1" />
@@ -146,6 +195,11 @@ console.log(currentPage)
         </button>
       </div>
     )}
+     <DeleteModal
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        deleteAction={deleteCategory}
+      />
       </div>
 
    

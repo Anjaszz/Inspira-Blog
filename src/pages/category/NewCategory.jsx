@@ -20,7 +20,7 @@ export const NewCategory = () => {
   };
 
   const handleSubmit = async (e) => {
-
+    
     e.preventDefault();
     const { errors, isValid } = AddCatValidator(formData);
     setFormError(errors);
