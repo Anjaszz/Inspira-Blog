@@ -1,11 +1,90 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSearch,faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import placeimg from '../../assets/images/place.jpeg'
+
+import  axios from "../../utils/AxiosInstances";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const PostList = () => {
   const navigate = useNavigate();
+  const [Loading, setLoading] = useState(false)
+  const [Posts,setPosts] = useState([])
+  const [totalPage,setTotalPage] = useState(1);
+  const [currentPage, setcurrentPage] = useState(1)
+  const [pageCount, setPageCount] = useState([]);
+  const [Search, setSearch] = useState("");
+
+
+  const getPosts = async () =>{
+     
+    try{
+      setLoading(true)
+      const response = await axios.get(`/posts?page=${currentPage}&q=${Search}`);
+      const data = response.data.data;
+      setTotalPage(data.pages)
+     
+      setPosts(data.posts)
+      setLoading(false)
+      }
+      catch(error){
+        setLoading(false)
+        const response = error.response;
+      const data = response.data;
+      toast.error(data.message, {
+        position: toast.TOP_RIGHT,
+        autoClose: true,
+      });
+      }
+    };
+    
+  useEffect(() =>{
+       getPosts();
+  },[currentPage]);
+
+  useEffect(()=>{
+    if(totalPage > 1){
+let tempPageCount = []
+for(let i = 1; i <= totalPage  ;i++){
+  tempPageCount = [...tempPageCount,i]
+}
+setPageCount(tempPageCount)
+    }else{
+      setPageCount([])
+    }
+  },[totalPage])
+
+  const handleSearch = async (e) =>{
+    const input = e.target.value
+    setSearch(input)
+    try{
+      const response = await axios.get(`/posts?q=${input}&page=${currentPage}`)
+      const data = response.data.data
+      setPosts(data.posts) 
+      setTotalPage(data.pages)
+    }catch(error){
+      setLoading(false)
+      const response = error.response;
+    const data = response.data;
+    toast.error(data.message, {
+      position: toast.TOP_RIGHT,
+      autoClose: true,
+    });
+    }
+  }
+
+  const handlePrev = () =>{
+    setcurrentPage((prev) => prev - 1)
+  }
+
+  const handleNext = () =>{
+    setcurrentPage((prev) => prev + 1)
+  }
+
+  const handlePage = (pageNum) =>{
+    setcurrentPage(pageNum)
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-4 ">
@@ -30,43 +109,50 @@ export const PostList = () => {
     type="text"
     name="search"
     placeholder="Search here"
+    onChange={handleSearch}
   />
 </div>
 
-
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" onClick={() => navigate("detail-post")}>
-        {Array.from({ length: 10 }).map((_, index) => (
+{Loading ? "loading..." : 
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" >
+        {Posts.map((post) => (
           <div
-            key={index}
+            key={post._id}
             className="bg-white p-4 rounded-md shadow-md hover:shadow-lg transition duration-300"
+            onClick={() => navigate(`detail-post/${post._id}`)}
           >
-            <h4 className="text-xl font-semibold mb-2 text-gray-800">Post {index + 1}</h4>
+            <h4 className="text-xl font-semibold mb-2 text-gray-800">{post.title}</h4>
             <p className="text-gray-600">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam et hic quae
-              fugit sint architecto, libero aperiam ut tempore voluptatum.
+             {post.desc}
             </p>
-            <img src={placeimg} alt="" />
           </div>
         ))}
       </div>
+}
 
-      <div className="flex justify-center items-center mt-8 space-x-2">
-        <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">
-          prev
+      {pageCount.length > 0 && (
+    <div className="flex justify-center mt-6 space-x-2 mb-3">
+      <button className="bg-gray-200 text-gray-600 py-2 px-4 rounded hover:bg-gray-300 transition flex items-center" disabled={currentPage === 1} onClick={handlePrev}>
+        <FontAwesomeIcon icon={faArrowLeft} className="mr-1" />
+        Prev
+      </button>
+      {pageCount.map((pageNum, index) => (
+        <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+          key={index}
+          onClick={() => handlePage(pageNum)}
+          style={{
+            backgroundColor: currentPage === pageNum ? "#B2DFDB" : ""
+          }}
+        >
+          {pageNum}
         </button>
-        {[1, 2, 3].map((page) => (
-          <button
-            key={page}
-            className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-300"
-          >
-            {page}
-          </button>
-        ))}
-        <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">
-          next
-        </button>
-      </div>
+      ))}
+      <button className="bg-gray-200 text-gray-600 py-2 px-4 rounded hover:bg-gray-300 transition flex items-center" disabled={currentPage === totalPage} onClick={handleNext}>
+        Next
+        <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
+      </button>
+    </div>
+  )}
     </div>
   );
 };

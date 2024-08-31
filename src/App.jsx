@@ -27,7 +27,7 @@ function App() {
           <Route path="categories/update-category/:id" element={<UpdateCategory />} />
           <Route path="post" element={<PostList />} />
           <Route path="post/new-post" element={<NewPost />} />
-          <Route path="post/detail-post" element={<DetailPost />} />
+          <Route path="post/detail-post/:id" element={<DetailPost />} />
           <Route path="post/update-post" element={<UpdatePost />} />
           <Route path="profile" element={<Profile />} />
           <Route path="setting" element={<Setting />} />
