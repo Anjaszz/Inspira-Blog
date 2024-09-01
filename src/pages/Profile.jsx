@@ -13,6 +13,7 @@ export const Profile = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const [loading, setLoading] = useState(false);
+  const [OldEmail, setOldEmail] = useState(null)
 
   const navigate = useNavigate()
 
@@ -36,6 +37,9 @@ export const Profile = () => {
           autoClose: true,
         });
         setFormData(initialFormData);
+        if(OldEmail !== formData.email){
+          window.localStorage.removeItem("BlogData")
+        }
         navigate("/login")
       } catch (error) {
         const response = error.response;
@@ -63,7 +67,7 @@ export const Profile = () => {
           const response = await axios.get(`/auth/current-user`);
           const data = response.data.data;
           setFormData({name: data.user.name, email: data.user.email })
-          
+          setOldEmail(data.user.email)
           }
           catch(error){
             setLoading(false)

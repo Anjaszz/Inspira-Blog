@@ -15,6 +15,7 @@ import { UpdateCategory } from "./pages/category/UpdateCat";
 import { NewPost } from "./pages/posts/NewPost";
 import { UpdatePost } from "./pages/posts/UpdatePost";
 import { DetailPost } from "./pages/posts/DetailPost";
+import { VerifyUser } from "./pages/VerifyUser";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="post/update-post/:id" element={<UpdatePost />} />
           <Route path="profile" element={<Profile />} />
           <Route path="setting" element={<Setting />} />
+          <Route path="verify-user" element={<VerifyUser />} />
         </Route>
 
         <Route element={<PublicLayout />}>

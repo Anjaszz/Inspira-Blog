@@ -34,7 +34,7 @@ export const Login = () => {
         window.localStorage.setItem("BlogData", JSON.stringify(data.data))
         toast.success(data.message, {
           position: toast.TOP_RIGHT,
-          autoClose: true,
+          autoClose: 2000,
         });
         setFormData(initialFormData);
         navigate("/")
@@ -44,7 +44,7 @@ export const Login = () => {
         const data = response.data;
         toast.error(data.message, {
           position: toast.TOP_RIGHT,
-          autoClose: true,
+          autoClose: 2000,
         });
         if (error.response && error.response.data) {
           setFormError(error.response.data.errors || initialFormError);
