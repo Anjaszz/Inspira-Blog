@@ -1,10 +1,143 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import  axios from "../../utils/AxiosInstances";
+import { AddPostValidator } from '../../validator/AddPostValidator';
+
+const initialFormData = {title:"", category:"",desc:""};
+const initialFormError = {title:"",category:""};
 
 export const UpdatePost = () => {
+  const [formData, setFormData] = useState(initialFormData);
+  const [formError, setFormError] = useState(initialFormError);
+  const [loading, setLoading] = useState(false);
+  const params = useParams();
+  const [FileId,setFileId] =useState(null)
+  const [isDisable, setIsDisable] = useState(false)
+  const [categories,setCategoris] = useState([]);
+  const PostId = params.id;
   const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  useEffect(() =>{
+    if(PostId){
+      const GetPost = async () =>{
+        try{
+         
+          const response = await axios.get(`/posts/${PostId}`);
+          const data = response.data.data;
+         
+          setFormData({title : data.post.title, category: data.post.category._id, desc: data.post.desc })
+          
+          }
+          catch(error){
+            setLoading(false)
+            const response = error.response;
+          const data = response.data;
+          toast.error(data.message, {
+            position: toast.TOP_RIGHT,
+            autoClose: true,
+          });
+          }
+      }
+      GetPost()
+    }
+  },[PostId]);
+
+  const handleSubmit = async (e) => {
+    
+    e.preventDefault();
+    const { errors, isValid } = AddPostValidator(formData);
+    setFormError(errors);
+
+    if (isValid) {
+      setLoading(true);
+      let input = formData;
+      if(FileId){
+        input = {...input,file: FileId}
+      }
+      try {
+        const response = await axios.put(`/posts/${PostId}`, input);
+        const data = response.data;
+        toast.success(data.message, {
+          position: toast.TOP_RIGHT,
+          autoClose: true,
+        });
+        setFormData(initialFormData);
+        navigate(-1)
+        
+      } catch (error) {
+        const response = error.response;
+        const data = response.data;
+        toast.error(data.message, {
+          position: toast.TOP_RIGHT,
+          autoClose: true,
+        });
+        if (error.response && error.response.data) {
+          setFormError(error.response.data.errors || initialFormError);
+        } else {
+          console.error("An error occurred:", error);
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect( () => {
+    const getCategories = async () =>{
+     
+      try{
+        
+        const response = await axios.get(`/category?size=1000`);
+        const data = response.data.data;
+        setCategoris(data.categories)
+        
+        }
+        catch(error){
+         
+          const response = error.response;
+        const data = response.data;
+        toast.error(data.message, {
+          position: toast.TOP_RIGHT,
+          autoClose: true,
+        });
+        }
+      }
+      getCategories()
+  },[]);
+
+  const handleFile = async (e) => {
+    console.log(e.target.files)
+    const formInput = new FormData();
+    formInput.append("image",e.target.files[0])
+    try {
+      setIsDisable(true)
+      const response = await axios.post("/file/upload", formInput);
+      const data = response.data;
+      setFileId(data.data._id)
+      toast.success(data.message, {
+        position: toast.TOP_RIGHT,
+        autoClose: 2000,
+      });
+      setIsDisable(false)
+    } catch (error) {
+      setIsDisable(false)
+      const response = error.response;
+      const data = response.data;
+      toast.error(data.message, {
+        position: toast.TOP_RIGHT,
+        autoClose: true,
+      });
+    }
+  }
+console.log(formData.category)
   return (
     <div className="max-w-4xl mx-auto p-4">
       <button 
@@ -16,16 +149,19 @@ export const UpdatePost = () => {
       </button>
 
       <div className="bg-white p-8 rounded-md shadow-lg">
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <h2 className="text-3xl font-semibold mb-6 text-gray-800">Update Post</h2>
 
           <div className="form-group">
             <label className="block text-gray-700 font-semibold mb-2">Title</label>
+            {formError.title && <p className="text-red-500 text-xs mb-1">{formError.title}</p>}
             <input
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
               type="text"
               name="title"
               placeholder="React blog post"
+              onChange={handleChange}
+              value={formData.title}
             />
           </div>
 
@@ -35,6 +171,8 @@ export const UpdatePost = () => {
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
               name="desc"
               placeholder="Lorem ipsum"
+              onChange={handleChange}
+              value={formData.desc}
             ></textarea>
           </div>
 
@@ -44,26 +182,33 @@ export const UpdatePost = () => {
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
               type="file"
               name="file"
+              accept="image/*"
+              onChange={handleFile}
             />
           </div>
 
           <div className="form-group">
-            <label className="block text-gray-700 font-semibold mb-2">Select a category</label>
+            <label className="block text-gray-700 font-semibold mb-2">Pilih Kategori</label>
+            {formError.category && <p className="text-red-500 text-xs mb-1">{formError.category}</p>}
             <select
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
               name="category"
+              onChange={handleChange}
+              value={formData.category}
             >
-              <option value="Category 1">Category 1</option>
-              <option value="Category 2">Category 2</option>
-              <option value="Category 3">Category 3</option>
+             
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>{category.title}</option>
+              ))}
             </select>
           </div>
 
           <div className="form-group">
             <input
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-300"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
               type="submit"
-              value="Update"
+              disabled={isDisable}
+              value={loading ? "Menyimpan..." : "Update"}
             />
           </div>
         </form>

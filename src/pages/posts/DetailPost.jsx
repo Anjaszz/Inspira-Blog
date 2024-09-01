@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "../../utils/AxiosInstances";
 import { toast } from "react-toastify";
 import moment from "moment";
+import DeleteModal from "../../components/DeleteModal";
 
 export const DetailPost = () => {
   const [post, setPosts] = useState(null);
@@ -12,6 +13,10 @@ export const DetailPost = () => {
   const params = useParams();
   const PostId = params.id;
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
  
   useEffect(() => {
     if (PostId) {
@@ -56,10 +61,34 @@ export const DetailPost = () => {
     }
   }, [post]);
 
+  const deletePost = async () => {
+    try{
+      const response = await axios.delete(`/posts/${PostId}`);
+      const data = response.data;
+      toast.success(data.message, {
+        position: toast.TOP_RIGHT,
+        autoClose: true,
+      });
+     navigate("/post")
+    } catch(error){
+     
+      const response = error.response;
+    const data = response.data;
+    toast.error(data.message, {
+      position: toast.TOP_RIGHT,
+      autoClose: true,
+    });
+    }
+    
+    closeModal();
+  };
+
   if (!post) {
     
     return <p>Loading...</p>;
   }
+
+  
  
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -68,11 +97,15 @@ export const DetailPost = () => {
           <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
           Go Back
         </button>
-        <button className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-300 flex items-center" onClick={() => navigate("/post/update-post")}>
+        <button 
+        className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-300 flex items-center" onClick={() => navigate(`/post/update-post/${PostId}`)}>
           <FontAwesomeIcon icon={faEdit} className="mr-2" />
           Update Post
         </button>
-        <button className="bg-red-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-700 transition duration-300 flex items-center">
+        <button 
+        className="bg-red-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-700 transition duration-300 flex items-center"
+        onClick={() => {openModal(post)}}
+        >
           <FontAwesomeIcon icon={faTrash} className="mr-2" />
           Delete Post
         </button>
@@ -93,7 +126,12 @@ export const DetailPost = () => {
         <p className="text-gray-700 leading-relaxed mb-4">{post.desc}</p>
        {FileUrl ? <img src={FileUrl} alt="image" />: ""}
       </div>
-
+      <DeleteModal
+    isOpen={isModalOpen}
+    closeModal={closeModal}
+    deleteAction={deletePost}
+    itemType="post"
+  />
     </div>
   );
 };

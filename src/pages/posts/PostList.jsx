@@ -23,6 +23,7 @@ export const PostList = () => {
       setLoading(true)
       const response = await axios.get(`/posts?page=${currentPage}&q=${Search}`);
       const data = response.data.data;
+      
       setTotalPage(data.pages)
      
       setPosts(data.posts)
@@ -85,7 +86,7 @@ setPageCount(tempPageCount)
   const handlePage = (pageNum) =>{
     setcurrentPage(pageNum)
   }
-
+console.log(Posts.length)
   return (
     <div className="max-w-7xl mx-auto p-4 ">
 <div className="flex justify-between items-center mb-6">
@@ -125,6 +126,7 @@ setPageCount(tempPageCount)
             <p className="text-gray-600">
              {post.desc}
             </p>
+           
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faEdit, faTrash, faArrowLeft, faArrowRight,faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEdit, faTrash, faArrowLeft, faArrowRight,faSearch,faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import  axios from "../../utils/AxiosInstances";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -17,7 +17,6 @@ export const CatList = () => {
   const [Search, setSearch] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categoryId, setCategoryId] = useState(null)
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -114,13 +113,14 @@ setPageCount(tempPageCount)
   return (
     <div className="p-6 bg-[#FAF3E0] min-h-screen">
     <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
-      <button
-        className="bg-[#379777] text-white py-2 px-4 rounded-xl hover:bg-[#31886b] transition flex items-center w-2/5 sm:w-auto"
-        onClick={() => navigate("new-category")}
-      >
-        <FontAwesomeIcon icon={faPlus} className="mr-2" />
-        Tambah Kategori
-      </button>
+    <button
+  className="bg-[#379777] text-white py-2 px-4 rounded-xl transition-transform transform hover:scale-105 hover:bg-[#31886b] focus:outline-none focus:ring-2 focus:ring-[#31886b] focus:ring-opacity-50 flex items-center justify-center w-2/5 sm:w-auto"
+  onClick={() => navigate("new-category")}
+>
+  <FontAwesomeIcon icon={faPlus} className="mr-2 text-xl" />
+  <span className="text-base font-medium">Tambah Kategori</span>
+</button>
+
       
       <div className="flex items-center border border-gray-300 rounded-lg w-full max-w-md sm:max-w-xs">
         <FontAwesomeIcon icon={faSearch} className="text-gray-400 mx-3" />
@@ -138,40 +138,51 @@ setPageCount(tempPageCount)
 
       <div className="overflow-x-auto bg-beige shadow-md rounded-lg">
   {Loading ? "Loading..." : (
-    <table className="w-full text-left border-collapse">
-      <thead>
-        <tr className="bg-peach text-black uppercase text-sm">
-          <th className="py-3 px-6">Title</th>
-          <th className="py-3 px-6">Description</th>
-          <th className="py-3 px-6">Created At</th>
-          <th className="py-3 px-6">Updated At</th>
-          <th className="py-3 px-6">Action</th>
-        </tr>
-      </thead>
-      <tbody className="text-gray-600 text-md font-normal">
-        {categories.map((category) => (
-          <tr key={category._id} className="border-b border-gray-200 hover:bg-gray-100">
-            <td className="py-3 px-6">{category.title}</td>
-            <td className="py-3 px-6">{category.desc}</td>
-            <td className="py-3 px-6">{moment(category.createdAt).format('YYYY-MM-DD-HH:mm:ss')}</td>
-            <td className="py-3 px-6">{moment(category.updatedAt).format('YYYY-MM-DD-HH:mm:ss')}</td>
-            <td className="py-3 px-6 flex space-x-2">
-              <button
-                className="bg-mint text-white py-1 px-3 rounded hover:bg-mint-dark transition flex items-center"
-                onClick={() => navigate(`update-category/${category._id}`)}
-              >
-                <FontAwesomeIcon icon={faEdit} className="mr-1" />
-                Update
-              </button>
-              <button className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition flex items-center" onClick={() => {openModal(category), setCategoryId(category._id)}}>
-                <FontAwesomeIcon icon={faTrash} className="mr-1" />
-                Delete
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+     <table className="w-full text-left border-collapse">
+     <thead>
+       <tr className="bg-peach text-black uppercase text-sm">
+         <th className="py-3 px-6">Title</th>
+         <th className="py-3 px-6">Description</th>
+         <th className="py-3 px-6">Created At</th>
+         <th className="py-3 px-6">Updated At</th>
+         <th className="py-3 px-6">Action</th>
+       </tr>
+     </thead>
+     <tbody className="text-gray-600 text-md font-normal">
+       {categories.length === 0 ? (
+         <tr>
+           <td colSpan="5" className="py-6 text-center text-gray-500 h-96">
+             <div className="flex items-center justify-center space-x-2">
+               <FontAwesomeIcon icon={faExclamationTriangle} className="text-yellow-500 text-xl" />
+               <span>Kategori masih Kosong</span>
+             </div>
+           </td>
+         </tr>
+       ) : (
+         categories.map((category) => (
+           <tr key={category._id} className="border-b border-gray-200 hover:bg-gray-100">
+             <td className="py-3 px-6">{category.title}</td>
+             <td className="py-3 px-6">{category.desc}</td>
+             <td className="py-3 px-6">{moment(category.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
+             <td className="py-3 px-6">{moment(category.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</td>
+             <td className="py-3 px-6 flex space-x-2">
+               <button
+                 className="bg-mint text-white py-1 px-3 rounded hover:bg-mint-dark transition flex items-center"
+                 onClick={() => navigate(`update-category/${category._id}`)}
+               >
+                 <FontAwesomeIcon icon={faEdit} className="mr-1" />
+                 Update
+               </button>
+               <button className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition flex items-center" onClick={() => {openModal(category), setCategoryId(category._id)}}>
+                 <FontAwesomeIcon icon={faTrash} className="mr-1" />
+                 Delete
+               </button>
+             </td>
+           </tr>
+         ))
+       )}
+     </tbody>
+   </table>
   )}
   {pageCount.length > 0 && (
     <div className="flex justify-center mt-6 space-x-2 mb-3">
@@ -200,6 +211,7 @@ setPageCount(tempPageCount)
     isOpen={isModalOpen}
     closeModal={closeModal}
     deleteAction={deleteCategory}
+     itemType="Kategori"
   />
 </div>
 

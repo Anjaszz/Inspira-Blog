@@ -2,7 +2,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
-function DeleteModal({ isOpen, closeModal, deleteAction }) {
+function DeleteModal({ isOpen, closeModal, deleteAction, itemType }) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -34,11 +34,11 @@ function DeleteModal({ isOpen, closeModal, deleteAction }) {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  Hapus Kategori
+                  Hapus {itemType}
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
-                    Apakah kamu yakin ingin menghapus kategori ini? Tindakan ini tidak dapat dibatalkan.
+                    Apakah kamu yakin ingin menghapus {itemType} ini? Tindakan ini tidak dapat dibatalkan.
                   </p>
                 </div>
 
