@@ -7,7 +7,7 @@ export const PublicLayout = () => {
     const auth = UseAuth();
 
     if(auth){
-        return <Navigate to="/" />
+        return <Navigate to="/dashboard" />
     }
   return (
     <>

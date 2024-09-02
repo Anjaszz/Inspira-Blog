@@ -86,7 +86,6 @@ export const NewPost = () => {
   },[]);
 
   const handleFile = async (e) => {
-    console.log(e.target.files)
     const formInput = new FormData();
     formInput.append("image",e.target.files[0])
     try {

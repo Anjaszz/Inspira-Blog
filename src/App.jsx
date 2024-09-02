@@ -16,13 +16,15 @@ import { NewPost } from "./pages/posts/NewPost";
 import { UpdatePost } from "./pages/posts/UpdatePost";
 import { DetailPost } from "./pages/posts/DetailPost";
 import { VerifyUser } from "./pages/VerifyUser";
+import ForgotPassword from "./pages/ForgotPassword";
+import { Dashboard } from "./pages/Dashboard";
 
 function App() {
   return (
     <>
       <Routes>
         <Route element={<PrivateLayout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="categories" element={<CatList />} />
           <Route path="categories/new-category" element={<NewCategory />} />
           <Route path="categories/update-category/:id" element={<UpdateCategory />} />
@@ -36,8 +38,10 @@ function App() {
         </Route>
 
         <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
         </Route>
       </Routes>
       <ToastContainer />

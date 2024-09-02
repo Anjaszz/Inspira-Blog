@@ -3,11 +3,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes,faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { UseAuth } from '../context/AuthContext';
 
 export const PrivateNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-
+  const auth = UseAuth();
   const handleLogout = () => {
     window.localStorage.removeItem("BlogData");
     toast.success("Logout Berhasil", {
@@ -43,13 +44,14 @@ export const PrivateNavbar = () => {
           >
             Home
           </NavLink>
+         {(auth.role === 1 || auth.role ===2 ) && ( 
           <NavLink 
             to="/categories" 
             className="text-gray-700 hover:text-indigo-500 transition duration-300"
             onClick={() => setIsOpen(false)}
           >
             Kategori
-          </NavLink>
+          </NavLink>)}
           <NavLink 
             to="/post" 
             className="text-gray-700 hover:text-indigo-500 transition duration-300"

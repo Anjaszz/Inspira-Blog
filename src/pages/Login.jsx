@@ -4,7 +4,7 @@ import axios from "../utils/AxiosInstances";
 import { LoginValidator } from "../validator/LoginValidator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialFormData = {email: "", password: ""};
 const initialFormError = {  email: "", password: ""};
@@ -94,6 +94,9 @@ export const Login = () => {
           <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
         </span>
       </div>
+      <Link className="forgot-password" to="/forgot-password">
+          Forgot Password
+        </Link>
     </div>
 
     <button type="submit" className="w-full bg-indigo-500 text-white font-medium py-3 rounded-lg hover:bg-indigo-600 transition duration-300" disabled={loading}>
