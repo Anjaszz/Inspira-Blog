@@ -1,18 +1,23 @@
-
-import { Navigate,Outlet } from "react-router-dom"
-import { PublicNavbar } from "../PublicNavbar"
+// PublicLayout.js
+import { Navigate, Outlet } from "react-router-dom";
+import { PublicNavbar } from "../PublicNavbar";
 import { UseAuth } from "../../context/AuthContext";
+import { Footer } from "../Footer";
 
 export const PublicLayout = () => {
-    const auth = UseAuth();
+  const auth = UseAuth();
 
-    if(auth){
-        return <Navigate to="/dashboard" />
-    }
+  if (auth) {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
-    <>
-    <PublicNavbar />
-    <Outlet/>
-    </>
-  )
-}
+    <div className="flex flex-col min-h-screen">
+      <PublicNavbar />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
+};

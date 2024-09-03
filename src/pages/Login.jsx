@@ -5,7 +5,7 @@ import { LoginValidator } from "../validator/LoginValidator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-
+import { LoadingPage } from "../components/Loading/LoadingPage";
 const initialFormData = {email: "", password: ""};
 const initialFormError = {  email: "", password: ""};
 
@@ -59,6 +59,7 @@ export const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      {loading && <LoadingPage/>}
   <form className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md" onSubmit={handleSubmit}>
     <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Masuk</h2>
 

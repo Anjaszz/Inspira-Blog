@@ -1,20 +1,35 @@
-import { useEffect, useState } from 'react';
-import axios from '../utils/AxiosInstances';
-
+import { useEffect, useRef, useState } from "react";
+import axios from "../utils/AxiosInstances";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileAlt, faQuoteLeft, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { LoadingPage } from "../components/Loading/LoadingPage";
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const scroll = () => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollLeft += 1;
+      }
+    };
+    const intervalId = setInterval(scroll, 50); // Scroll setiap 50ms
+    return () => clearInterval(intervalId);
+  }, []);
 
   // Fallback image URL
-  const fallbackImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+  const fallbackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         setLoading(true); // Set loading to true before fetching data
-        const response = await axios.get('/posts'); // Fetch posts
+        const response = await axios.get("/posts/all", { params: { size: 6 } }); // Fetch posts
         const data = response.data.data.posts;
-        
+        console.log(data);
         // Fetch image URLs for each post if image URLs are not directly included
         const postsWithImages = await Promise.all(
           data.map(async (post) => {
@@ -32,7 +47,7 @@ const Home = () => {
             return post;
           })
         );
-        
+
         setPosts(postsWithImages); // Update state with posts and their images
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -44,72 +59,125 @@ const Home = () => {
     fetchPosts();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-
   return (
-    <div className="font-sans">
-      {/* Recent Posts */}
-      <section className="py-16 px-8">
-        <h2 className="text-3xl font-bold mb-8 text-center">Recent Posts</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {posts.map(post => (
-            <div key={post._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img
-                src={post.imageUrl}
-                alt={post.title}
-                className="w-full h-48 object-cover"
-                onError={(e) => e.target.src = fallbackImageUrl} // Set fallback image on error
-              />
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold">{post.title}</h3>
-                <p className="mt-4 text-gray-600">{post.desc ? post.desc.substring(0, 100) + '...' : 'No description available'}</p>
+    <div>
+      <div className="flex flex-col md:flex-row items-center justify-between p-12 bg-gray-50">
+        <div className="md:w-1/2">
+          <h1 className="text-5xl font-bold text-gray-800 leading-tight">
+            Selamat datang di <br />
+            <span className="text-red-500">inspiraBlog</span>
+          </h1>
+          <p className="mt-4 text-gray-600">
+            Di sini, kami menghadirkan beragam inspirasi, ide, dan pandangan untuk memotivasi setiap langkah Anda. Temukan artikel menarik yang memicu kreativitas, memacu semangat, dan membantu Anda mencapai versi terbaik dari diri sendiri.
+            Mari bersama-sama menjelajahi dunia penuh inspirasi
+          </p>
+          <button className="mt-6 px-6 py-3 bg-gray-800 text-white rounded-full">Gabung</button>
+        </div>
+        <div className="md:w-1/2 mt-8 md:mt-0">
+          <img src="https://preview.tailwindtemplates.co/plain/assets/images/header-image.svg" alt="Illustration of people working on a project" />
+        </div>
+      </div>
+
+      {/* Fitur Section */}
+      <div className="container mx-auto px-4 py-16">
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">Fitur-Fitur</h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="border-dashed border-2 border-gray-300 p-8 text-center">
+            <div className="flex justify-center mb-4">
+              <div className="bg-blue-100 p-4 rounded-full flex items-center justify-center w-16 h-16">
+                <FontAwesomeIcon icon={faFileAlt} size="2x" />
+              </div>
+            </div>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">Artikel Inspiratif</h2>
+            <p className="text-gray-600">Kami menyajikan berbagai artikel yang penuh dengan inspirasi, mulai dari tips produktivitas, panduan pengembangan diri, hingga cerita-cerita motivasi yang membangkitkan semangat.</p>
+          </div>
+          <div className="border-dashed border-2 border-gray-300 p-8 text-center">
+            <div className="flex justify-center mb-4">
+              <div className="bg-blue-100 p-4 rounded-full flex items-center justify-center w-16 h-16">
+                <FontAwesomeIcon icon={faQuoteLeft} size="2x" />
+              </div>
+            </div>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">Quotes of the Day</h2>
+            <p className="text-gray-600">Dapatkan kutipan motivasi harian yang dikurasi khusus untuk membantu Anda memulai hari dengan penuh semangat dan fokus.</p>
+          </div>
+          <div className="border-dashed border-2 border-gray-300 p-8 text-center">
+            <div className="flex justify-center mb-4">
+              <div className="bg-blue-100 p-4 rounded-full flex items-center justify-center w-16 h-16">
+                <FontAwesomeIcon icon={faUsers} size="2x" />
+              </div>
+            </div>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">Komunitas Pembaca</h2>
+            <p className="text-gray-600">Bergabunglah dengan komunitas pembaca inspiraBlog di media sosial dan forum kami. Berbagi pengalaman, bertukar ide, dan temukan teman baru yang juga mencari inspirasi dalam hidup mereka.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* About Me Section */}
+      <div className="container mx-auto flex flex-col md:flex-row items-center py-16 px-6">
+        <div className="md:w-1/2">
+          <img src="https://preview.tailwindtemplates.co/plain/assets/images/about.svg" alt="Illustration of people working with charts and graphs" className="w-full" />
+        </div>
+        <div className="md:w-1/2 md:pl-12 mt-8 md:mt-0">
+          <h2 className="text-red-500 text-lg font-semibold">Kenapa memilih kami</h2>
+          <h1 className="text-4xl font-bold text-gray-800 mt-2">Tentang Kami</h1>
+          <p className="text-gray-600 mt-4">
+            inspiraBlog adalah ruang digital yang didedikasikan untuk menggali dan menyebarkan inspirasi, kami berkomitmen untuk menghadirkan konten yang memotivasi, membangkitkan kreativitas, dan menginspirasi perubahan positif dalam
+            kehidupan pembaca kami. Melalui artikel, cerita, dan panduan, inspiraBlog menjadi sumber daya bagi siapa pun yang mencari dorongan untuk mencapai tujuan mereka, menjelajahi ide-ide baru, atau sekadar mencari semangat dalam
+            keseharian. Kami percaya bahwa setiap orang memiliki potensi luar biasa yang dapat dikembangkan, dan inspiraBlog ada untuk membantu Anda menemukan dan mewujudkan potensi tersebut. Terima kasih telah menjadi bagian dari komunitas
+            kami, dan selamat menjelajahi dunia inspirasi bersama kami.
+          </p>
+        </div>
+      </div>
+
+      <div className="py-12">
+        {loading && <LoadingPage />}
+        <h2 className="text-center text-2xl font-bold mb-8">Post terbaru</h2>
+        <div ref={scrollRef} className="overflow-x-scroll scrollbar-hide flex space-x-4 px-4">
+          {posts.map((post) => (
+            <div key={post._id} className="flex-shrink-0 w-64 bg-white rounded-lg shadow-md" onClick={() => navigate(`detail-post/${post._id}`)}>
+              <img src={post.imageUrl} alt={post.title} className="w-full h-40 rounded-t-lg object-cover" onError={(e) => (e.target.src = fallbackImageUrl)} />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">{post.title}</h3>
+                <p className="text-gray-500">{post.desc ? post.desc.substring(0, 100) + "..." : "No description available"}</p>
+              </div>
+              <div className="flex items-center justify-center p-2">
+                <button className="text-xl text-gray-600 hover:text-gray-900 transition duration-200">&#8250;</button>
               </div>
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Categories Section */}
-      <section className="py-16 bg-gray-100 px-8">
-        <h2 className="text-3xl font-bold mb-8 text-center">Categories</h2>
-        <div className="flex justify-center gap-8">
-          {[
-            { id: 1, name: 'Inspiration', image: 'https://via.placeholder.com/100' },
-            { id: 2, name: 'Ideas', image: 'https://via.placeholder.com/100' },
-            { id: 3, name: 'Insights', image: 'https://via.placeholder.com/100' },
-          ].map(category => (
-            <div key={category.id} className="text-center">
-              <img src={category.image} alt={category.name} className="w-24 h-24 mx-auto rounded-full" />
-              <h3 className="mt-4 text-xl font-semibold">{category.name}</h3>
-            </div>
-          ))}
+        <div className="flex justify-center mt-4">
+          <div className="w-2 h-2 bg-red-500 rounded-full mx-1"></div>
+          <div className="w-2 h-2 bg-gray-300 rounded-full mx-1"></div>
+          <div className="w-2 h-2 bg-gray-300 rounded-full mx-1"></div>
         </div>
-      </section>
+      </div>
 
-      {/* Featured Posts */}
-      <section className="py-16 px-8">
-        <h2 className="text-3xl font-bold mb-8 text-center">Featured Posts</h2>
-        <div className="grid md:grid-cols-1 gap-8">
-          {[
-            { id: 1, title: 'Featured Post 1', desc: 'This is a description of the featured post.', image: 'https://via.placeholder.com/150' },
-          ].map(post => (
-            <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img
-                src={post.image}
-                alt={post.title}
-                className="w-full h-48 object-cover"
-                onError={(e) => e.target.src = fallbackImageUrl} // Set fallback image on error
-              />
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold">{post.title}</h3>
-                <p className="mt-4 text-gray-600">{post.desc}</p>
-              </div>
-            </div>
-          ))}
+      <div className="container mx-auto px-4 py-16 flex items-center">
+        <div className="w-1/2">
+          <img src="https://preview.tailwindtemplates.co/plain/assets/images/contact.svg" alt="Illustration of a person with a headset, sitting at a desk with a laptop, and various communication icons around" />
         </div>
-      </section>
+        <div className="w-1/2 pl-16">
+          <h2 className="text-red-500 text-lg font-semibold">Kontak kami</h2>
+          <h1 className="text-4xl font-bold mb-4">Kami Siap Membantu Anda</h1>
+          <p className="text-gray-600 mb-8">
+            Kami ingin mendengar dari Anda! Jika Anda memiliki pertanyaan, komentar, atau umpan balik, jangan ragu untuk menghubungi kami melalui formulir di bawah ini atau menggunakan informasi kontak yang tertera. Kami akan segera
+            membalas pesan Anda.
+          </p>
+          <form className="space-y-4">
+            <div className="flex space-x-4">
+              <input type="text" placeholder="Name" className="w-1/2 p-4 border border-gray-300 rounded" />
+              <input type="email" placeholder="Email" className="w-1/2 p-4 border border-gray-300 rounded" />
+            </div>
+            <textarea placeholder="Message" className="w-full p-4 border border-gray-300 rounded h-32"></textarea>
+            <button type="submit" className="bg-red-500 text-white px-6 py-3 rounded">
+              Kirim
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default Home;
