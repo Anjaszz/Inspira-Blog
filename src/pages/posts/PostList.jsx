@@ -158,7 +158,7 @@ export const PostList = () => {
               className="bg-white p-4 rounded-md shadow-md hover:shadow-lg transition duration-300"
               onClick={() => navigate(`detail-post/${post._id}`)}
             >
-              {post.imageUrl && <img src={post.imageUrl} alt={post.title} className="mb-2 rounded-md"/>}
+              {post.imageUrl && <img src={post.imageUrl} alt={post.title} className="mb-2 rounded-md w-full max-h-60 h-auto max-w-2xl mx-auto object-cover"/>}
               <h4 className="text-xl font-semibold mb-2 text-gray-800">{post.title}</h4>
               <p className="text-gray-600">
               {truncateText(post.desc, 20)}

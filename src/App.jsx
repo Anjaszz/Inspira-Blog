@@ -18,7 +18,7 @@ import { DetailPost } from "./pages/posts/DetailPost";
 import { VerifyUser } from "./pages/VerifyUser";
 import ForgotPassword from "./pages/ForgotPassword";
 import { Dashboard } from "./pages/Dashboard";
-import { DetailAllPost } from "./pages/DetailAllPost";
+import { DetailPublicPost } from "./pages/DetailPublicPost";
 function App() {
   return (
     <>
@@ -39,7 +39,7 @@ function App() {
 
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/detail-post/:id" element={<DetailAllPost />} />
+          <Route path="/detail-post/:id" element={<DetailPublicPost />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="forgot-password" element={<ForgotPassword />} />

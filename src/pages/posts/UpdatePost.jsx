@@ -33,7 +33,7 @@ export const UpdatePost = () => {
           const response = await axios.get(`/posts/${PostId}`);
           const data = response.data.data;
          
-          setFormData({title : data.post.title, category: data.post.category._id, desc: data.post.desc })
+          setFormData({title : data.post.title, category: data.post.category._id, desc: data.post.desc,  file: data.post?.file?._id, })
           
           }
           catch(error){

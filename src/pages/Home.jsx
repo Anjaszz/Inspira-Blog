@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt, faQuoteLeft, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { LoadingPage } from "../components/Loading/LoadingPage";
+import contactImage from '../assets/images/contact.svg';
+import AboutImage from '../assets/images/about.svg';
+import headerImage from '../assets/images/header-image.svg';
+
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,7 +69,7 @@ const Home = () => {
   <div className="md:w-1/2">
     <h1 className="text-3xl sm:text-5xl font-bold text-gray-800 leading-tight">
       Selamat datang di <br />
-      <span className="text-red-500">inspiraBlog</span>
+      <span className="text-[#7695FF]">inspiraBlog</span>
     </h1>
     <p className="mt-4 text-gray-600 text-sm sm:text-lg">
       Di sini, kami menghadirkan beragam inspirasi, ide, dan pandangan untuk memotivasi setiap langkah Anda. Temukan artikel menarik yang memicu kreativitas, memacu semangat, dan membantu Anda mencapai versi terbaik dari diri sendiri.
@@ -83,7 +87,7 @@ const Home = () => {
     </div>
   </div>
   <div className="md:w-1/2 mt-8 md:mt-0">
-    <img src="https://preview.tailwindtemplates.co/plain/assets/images/header-image.svg" alt="Illustration of people working on a project" />
+    <img src={headerImage} alt="Illustration of people working on a project" />
   </div>
 </div>
 
@@ -125,10 +129,10 @@ const Home = () => {
       {/* About Me Section */}
       <div className="container mx-auto flex flex-col md:flex-row items-center py-16 px-6">
         <div className="md:w-1/2">
-          <img src="https://preview.tailwindtemplates.co/plain/assets/images/about.svg" alt="Illustration of people working with charts and graphs" className="w-full" />
+          <img src={AboutImage} alt="Illustration of people working with charts and graphs" className="w-full" />
         </div>
         <div className="md:w-1/2 md:pl-12 mt-8 md:mt-0">
-          <h2 className="text-red-500 text-lg font-semibold">Kenapa memilih kami</h2>
+          <h2 className="text-[#7695FF] text-lg font-semibold">Kenapa memilih kami</h2>
           <h1 className="text-4xl font-bold text-gray-800 mt-2">Tentang Kami</h1>
           <p className="text-gray-600 mt-4">
             inspiraBlog adalah ruang digital yang didedikasikan untuk menggali dan menyebarkan inspirasi, kami berkomitmen untuk menghadirkan konten yang memotivasi, membangkitkan kreativitas, dan menginspirasi perubahan positif dalam
@@ -144,7 +148,7 @@ const Home = () => {
         <h2 className="text-center text-2xl font-bold mb-8">Post terbaru</h2>
         <div ref={scrollRef} className="overflow-x-scroll scrollbar-hide flex space-x-4 px-4">
           {posts.map((post) => (
-            <div key={post._id} className="flex-shrink-0 w-64 bg-white rounded-lg shadow-md" onClick={() => navigate(`detail-post/${post._id}`)}>
+            <div key={post._id} className="flex-shrink-0 mb-2 w-64 bg-white rounded-lg shadow-md" onClick={() => navigate(`detail-post/${post._id}`)}>
               <img src={post.imageUrl} alt={post.title} className="w-full h-40 rounded-t-lg object-cover" onError={(e) => (e.target.src = fallbackImageUrl)} />
               <div className="p-4">
                 <h3 className="text-lg font-semibold">{post.title}</h3>
@@ -157,7 +161,7 @@ const Home = () => {
           ))}
         </div>
         <div className="flex justify-center mt-4">
-          <div className="w-2 h-2 bg-red-500 rounded-full mx-1"></div>
+          <div className="w-2 h-2 bg-[#7695FF] rounded-full mx-1"></div>
           <div className="w-2 h-2 bg-gray-300 rounded-full mx-1"></div>
           <div className="w-2 h-2 bg-gray-300 rounded-full mx-1"></div>
         </div>
@@ -165,10 +169,10 @@ const Home = () => {
 
       <div className="container mx-auto px-4 py-16 flex items-center">
         <div className="w-1/2">
-          <img src="https://preview.tailwindtemplates.co/plain/assets/images/contact.svg" alt="Illustration of a person with a headset, sitting at a desk with a laptop, and various communication icons around" />
+          <img src={contactImage} alt="Illustration of a person with a headset, sitting at a desk with a laptop, and various communication icons around" />
         </div>
         <div className="w-1/2 pl-16">
-          <h2 className="text-red-500 text-lg font-semibold">Kontak kami</h2>
+          <h2 className="text-[#7695FF] text-lg font-semibold">Kontak kami</h2>
           <h1 className="text-4xl font-bold mb-4">Kami Siap Membantu Anda</h1>
           <p className="text-gray-600 mb-8">
             Kami ingin mendengar dari Anda! Jika Anda memiliki pertanyaan, komentar, atau umpan balik, jangan ragu untuk menghubungi kami melalui formulir di bawah ini atau menggunakan informasi kontak yang tertera. Kami akan segera
@@ -180,7 +184,7 @@ const Home = () => {
               <input type="email" placeholder="Email" className="w-1/2 p-4 border border-gray-300 rounded" />
             </div>
             <textarea placeholder="Message" className="w-full p-4 border border-gray-300 rounded h-32"></textarea>
-            <button type="submit" className="bg-red-500 text-white px-6 py-3 rounded">
+            <button type="submit" className="bg-[#7695FF] text-white px-6 py-3 rounded">
               Kirim
             </button>
           </form>

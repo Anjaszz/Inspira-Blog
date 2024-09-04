@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const AxiosInstances = axios.create({baseURL : "http://localhost:8000/api/v1"})
+const AxiosInstances = axios.create({baseURL : "https://inspira-blog-api.vercel.app/api/v1"})
 
 AxiosInstances.interceptors.request.use((req) =>{
     const StringfyBlogData = window.localStorage.getItem("BlogData");

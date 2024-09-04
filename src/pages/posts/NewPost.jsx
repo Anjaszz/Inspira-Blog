@@ -112,17 +112,20 @@ export const NewPost = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-4 ">
-      <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md shadow-md hover:bg-gray-400 transition duration-300 flex items-center mb-6" onClick={() => navigate(-1)}>
-        <FontAwesomeIcon icon={faArrowLeft} className="mr-2"  />
-        Go Back
-      </button>
+      <button
+      className="absolute bg-blue-500 top-20 left-4 flex items-center text-white hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 px-4 py-2 transition-transform transform hover:scale-105 active:scale-75 rounded-lg shadow-md hover:shadow-lg"
+      onClick={() => navigate(-1)}
+    >
+      <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+      Go Back
+    </button>
 
-      <div className="bg-white p-8 rounded-md shadow-lg">
+      <div className="bg-white p-8 rounded-md shadow-lg mt-20">
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <h2 className="text-3xl font-semibold mb-6 text-gray-800">New Post</h2>
+          <h2 className="text-3xl font-semibold mb-6 text-gray-800">Post Baru</h2>
 
           <div className="form-group">
-            <label className="block text-gray-700 font-semibold mb-2">Title</label>
+            <label className="block text-gray-700 font-semibold mb-2">Judul</label>
             {formError.title && <p className="text-red-500 text-xs mb-1">{formError.title}</p>}
             <input
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -135,18 +138,18 @@ export const NewPost = () => {
           </div>
 
           <div className="form-group">
-            <label className="block text-gray-700 font-semibold mb-2">Description</label>
+            <label className="block text-gray-700 font-semibold mb-2">Deskripsi</label>
             <textarea
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
               name="desc"
-              placeholder="Lorem ipsum"
+              placeholder="Deskripsi My Post"
               onChange={handleChange}
               value={formData.desc}
             ></textarea>
           </div>
 
           <div className="form-group">
-            <label className="block text-gray-700 font-semibold mb-2">Select an image</label>
+            <label className="block text-gray-700 font-semibold mb-2">Pilih gambar</label>
             <input
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
               type="file"

@@ -6,6 +6,7 @@ import axios from "../../utils/AxiosInstances";
 import { toast } from "react-toastify";
 import moment from "moment";
 import DeleteModal from "../../components/DeleteModal";
+import { LoadingPage } from "../../components/Loading/LoadingPage";
 
 export const DetailPost = () => {
   const [post, setPosts] = useState(null);
@@ -85,7 +86,7 @@ export const DetailPost = () => {
 
   if (!post) {
     
-    return <p>Loading...</p>;
+    return <LoadingPage/>;
   }
 
   
@@ -93,13 +94,10 @@ export const DetailPost = () => {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="flex gap-4 mb-6">
-      <button
-      className="absolute bg-blue-500 top-20 left-4 flex items-center text-white hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 px-4 py-2 transition-transform transform hover:scale-105 active:scale-75 rounded-lg shadow-md hover:shadow-lg"
-      onClick={() => navigate(-1)}
-    >
-      <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-      Go Back
-    </button>
+      <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md shadow-md hover:bg-gray-400 transition duration-300 flex items-center" onClick={() => navigate(-1)}>
+          <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+          Go Back
+        </button>
         <button 
         className="absolute right-4 bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-300 flex items-center" onClick={() => navigate(`/post/update-post/${PostId}`)}>
           <FontAwesomeIcon icon={faEdit} className="mr-2" />

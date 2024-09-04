@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import moment from "moment";
 import { LoadingPage } from "../components/Loading/LoadingPage";
 
-export const DetailAllPost = () => {
+export const DetailPublicPost = () => {
   const [post, setPosts] = useState(null);
   const [FileUrl,setFileUrl]= useState(null)
   const params = useParams();
@@ -69,7 +69,10 @@ export const DetailAllPost = () => {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="flex gap-4 mb-6">
-        <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md shadow-md hover:bg-gray-400 transition duration-300 flex items-center" onClick={() => navigate(-1)}>
+      <button
+          className="absolute top-20 left-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-transform transform hover:scale-105 active:scale-75"
+          onClick={() => navigate(-1)}
+        >
           <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
           Go Back
         </button>
