@@ -12,7 +12,10 @@ export default {
         peach: '#FFCBA4',
         mint: '#B2DFDB',
         'mint-dark': '#9FD3D0'
-      }
+      },
+      fontFamily: {
+        'nerko': ['Nerko One', 'cursive'], 
+      },
     },
   },
   plugins: [

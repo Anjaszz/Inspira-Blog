@@ -77,7 +77,7 @@ export const DetailPublicPost = () => {
           Go Back
         </button>
       </div>
-      <div className="bg-white p-8 rounded-md shadow-lg min-h-96">
+      <div className="bg-white p-8 rounded-md shadow-lg min-h-96 mt-20">
         <h1 className="text-3xl font-semibold mb-4 text-gray-800">
           {post.title}
         </h1>

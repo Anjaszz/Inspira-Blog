@@ -65,31 +65,34 @@ const Home = () => {
 
   return (
     <div>
-     <div className="flex flex-col md:flex-row items-center justify-between p-12 bg-gray-50">
-  <div className="md:w-1/2">
+  <div className="flex flex-col md:flex-row items-center justify-between p-12 bg-gray-50">
+  <div className="md:w-1/2 flex flex-col items-start">
     <h1 className="text-3xl sm:text-5xl font-bold text-gray-800 leading-tight">
       Selamat datang di <br />
       <span className="text-[#7695FF]">inspiraBlog</span>
     </h1>
     <p className="mt-4 text-gray-600 text-sm sm:text-lg">
       Di sini, kami menghadirkan beragam inspirasi, ide, dan pandangan untuk memotivasi setiap langkah Anda. Temukan artikel menarik yang memicu kreativitas, memacu semangat, dan membantu Anda mencapai versi terbaik dari diri sendiri.
-      Mari bersama-sama menjelajahi dunia penuh inspirasi
+      Mari bersama-sama menjelajahi dunia penuh inspirasi.
     </p>
     <div className="relative inline-flex group mt-6">
       <div
-        className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt">
-      </div>
-      <a href="#"
-        className="relative inline-flex items-center justify-center px-5 py-2 text-lg font-bold text-white transition-all duration-200 bg-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-        role="button">
+        className="absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"
+      ></div>
+      <a
+        onClick={()=> navigate("/signup")}
+        className="relative inline-flex items-center justify-center px-5 py-2 text-sm sm:text-lg font-bold text-white transition-all duration-200 bg-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+        role="button"
+      >
         Gabung
       </a>
     </div>
   </div>
-  <div className="md:w-1/2 mt-8 md:mt-0">
-    <img src={headerImage} alt="Illustration of people working on a project" />
+  <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
+    <img src={headerImage} alt="Illustration of people working on a project" className="w-full h-auto object-cover rounded-lg" />
   </div>
 </div>
+
 
 
       {/* Fitur Section */}
