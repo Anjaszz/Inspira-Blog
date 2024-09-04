@@ -58,8 +58,8 @@ export const Signup = () => {
   };
 
   return (
-<div className=" min-h-screen flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1689521568081-c5baa6133bd0?q=80&w=1448&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
-  <form className="bg-gray-600 my-5 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 border border-gray-100 border-opacity-30 p-8 shadow-lg w-full max-w-md" onSubmit={handleSubmit}>
+<div className=" min-h-screen flex items-center justify-center bg-[url('/background1.jpg')] bg-cover">
+  <form className="bg-gray-600 mx-4 my-5 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 border border-gray-100 border-opacity-30 p-8 shadow-lg w-full max-w-md" onSubmit={handleSubmit}>
   {loading && <LoadingPage />}
     <h2 className="text-3xl font-bold text-white mb-6 text-center">Daftar</h2>
 

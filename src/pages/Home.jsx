@@ -64,14 +64,14 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-  <div className="flex flex-col md:flex-row items-center justify-between p-12 bg-gray-50">
+    <>
+  <div className="flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 bg-gray-50 w-full">
   <div className="md:w-1/2 flex flex-col items-start">
-    <h1 className="text-3xl sm:text-5xl font-bold text-gray-800 leading-tight">
+    <h1 className="text-2xl sm:text-5xl font-bold text-gray-800 leading-tight">
       Selamat datang di <br />
       <span className="text-[#7695FF]">inspiraBlog</span>
     </h1>
-    <p className="mt-4 text-gray-600 text-sm sm:text-lg">
+    <p className="mt-4 text-gray-600 text-xs sm:text-sm text-left">
       Di sini, kami menghadirkan beragam inspirasi, ide, dan pandangan untuk memotivasi setiap langkah Anda. Temukan artikel menarik yang memicu kreativitas, memacu semangat, dan membantu Anda mencapai versi terbaik dari diri sendiri.
       Mari bersama-sama menjelajahi dunia penuh inspirasi.
     </p>
@@ -134,10 +134,10 @@ const Home = () => {
         <div className="md:w-1/2">
           <img src={AboutImage} alt="Illustration of people working with charts and graphs" className="w-full" />
         </div>
-        <div className="md:w-1/2 md:pl-12 mt-8 md:mt-0">
-          <h2 className="text-[#7695FF] text-lg font-semibold">Kenapa memilih kami</h2>
-          <h1 className="text-4xl font-bold text-gray-800 mt-2">Tentang Kami</h1>
-          <p className="text-gray-600 mt-4">
+        <div className="md:w-1/2 w-full pl-2 sm:pl-12 mt-8 md:mt-0">
+          <h2 className="text-[#7695FF] text-sm sm:text-lg font-semibold">Kenapa memilih kami?</h2>
+          <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mt-2 text-center">Tentang Kami</h1>
+          <p className="text-gray-600 text-center mt-4 text-xs sm:text-lg">
             inspiraBlog adalah ruang digital yang didedikasikan untuk menggali dan menyebarkan inspirasi, kami berkomitmen untuk menghadirkan konten yang memotivasi, membangkitkan kreativitas, dan menginspirasi perubahan positif dalam
             kehidupan pembaca kami. Melalui artikel, cerita, dan panduan, inspiraBlog menjadi sumber daya bagi siapa pun yang mencari dorongan untuk mencapai tujuan mereka, menjelajahi ide-ide baru, atau sekadar mencari semangat dalam
             keseharian. Kami percaya bahwa setiap orang memiliki potensi luar biasa yang dapat dikembangkan, dan inspiraBlog ada untuk membantu Anda menemukan dan mewujudkan potensi tersebut. Terima kasih telah menjadi bagian dari komunitas
@@ -169,22 +169,22 @@ const Home = () => {
           <div className="w-2 h-2 bg-gray-300 rounded-full mx-1"></div>
         </div>
       </div>
-
-      <div className="container mx-auto px-4 py-16 flex items-center">
-        <div className="w-1/2">
-          <img src={contactImage} alt="Illustration of a person with a headset, sitting at a desk with a laptop, and various communication icons around" />
+      {/*contact*/}
+      <div className="container mx-auto px-1 sm:px-4 py-16 flex flex-col items-center">
+        <div className="sm:w-1/2">
+          <img src={contactImage} alt="Illustration of a person with a headset, sitting at a desk with a laptop, and various communication icons around" className="w-full"/>
         </div>
-        <div className="w-1/2 pl-16">
-          <h2 className="text-[#7695FF] text-lg font-semibold">Kontak kami</h2>
-          <h1 className="text-4xl font-bold mb-4">Kami Siap Membantu Anda</h1>
-          <p className="text-gray-600 mb-8">
+        <div className="w-full sm:w-1/2 pl-2 sm:pl-12">
+          <h2 className="text-[#7695FF] text-md font-semibold sm:text-lg">Kontak kami</h2>
+          <h1 className="text-sm sm:text4xl font-bold mb-2 sm:mb-4">Kami Siap Membantu Anda</h1>
+          <p className="text-gray-600 mb-8 text-xs sm:text-lg text-left">
             Kami ingin mendengar dari Anda! Jika Anda memiliki pertanyaan, komentar, atau umpan balik, jangan ragu untuk menghubungi kami melalui formulir di bawah ini atau menggunakan informasi kontak yang tertera. Kami akan segera
             membalas pesan Anda.
           </p>
-          <form className="space-y-4">
-            <div className="flex space-x-4">
-              <input type="text" placeholder="Name" className="w-1/2 p-4 border border-gray-300 rounded" />
-              <input type="email" placeholder="Email" className="w-1/2 p-4 border border-gray-300 rounded" />
+          <form className="space-y-4  px-2 sm:px-6">
+            <div className="flex space-x-4 ">
+              <input type="text" placeholder="Name" className="w-1/2 h-2/3 p-2 border border-gray-300 rounded" />
+              <input type="email" placeholder="Email" className="w-1/2 p-2 border border-gray-300 rounded" />
             </div>
             <textarea placeholder="Message" className="w-full p-4 border border-gray-300 rounded h-32"></textarea>
             <button type="submit" className="bg-[#7695FF] text-white px-6 py-3 rounded">
@@ -193,7 +193,7 @@ const Home = () => {
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

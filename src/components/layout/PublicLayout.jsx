@@ -12,7 +12,7 @@ export const PublicLayout = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen w-screen">
       <PublicNavbar />
       <main className="flex-grow">
         <Outlet />
