@@ -75,9 +75,9 @@ export const DetailAllPost = () => {
         </button>
       </div>
       <div className="bg-white p-8 rounded-md shadow-lg min-h-96">
-        <h2 className="text-3xl font-semibold mb-4 text-gray-800">
+        <h1 className="text-3xl font-semibold mb-4 text-gray-800">
           {post.title}
-        </h2>
+        </h1>
       
         <h5 className="text-lg font-medium text-gray-800 mb-2">Kategori : 
           {post.category.title}

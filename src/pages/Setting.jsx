@@ -60,31 +60,26 @@ export const Setting = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
-      <div className="relative flex-grow flex items-center justify-center p-6">
+    <div className="flex flex-grow flex-col p-6">
+      <div className="flex items-start">
         <button
-          className="absolute top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-transform transform hover:scale-105 active:scale-75"
+          className="bg-blue-500 flex items-center text-white hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 px-4 py-2 transition-transform transform hover:scale-105 active:scale-75 rounded-lg shadow-md hover:shadow-lg"
           onClick={() => navigate(-1)}
         >
           <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
           Go Back
         </button>
+      </div>
 
-        <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md mt-16">
-          <div className="flex flex-col items-center mb-6">
-            {!auth.isVerified && (
-              <button className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600" onClick={() => navigate('/verify-user')}>
-                Verify User
-              </button>
-            )}
-          </div>
-
+      <div className="flex-grow flex items-center justify-center mt-16">
+        <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
           <form className="space-y-4" onSubmit={handleSubmit}>
             <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
-              Change Password
+              Ganti Password
             </h2>
 
             <div className="relative flex flex-col space-y-2">
-              <label className="text-gray-700 font-semibold">Old Password</label>
+              <label className="text-gray-700 font-semibold">Password Lama</label>
               {formError.oldPassword && <p className="text-red-500 text-xs mb-1">{formError.oldPassword}</p>}
               <div className="flex items-center">
                 <input
@@ -107,7 +102,7 @@ export const Setting = () => {
             </div>
 
             <div className="relative flex flex-col space-y-2">
-              <label className="text-gray-700 font-semibold">New Password</label>
+              <label className="text-gray-700 font-semibold">Password Baru</label>
               {formError.newPassword && <p className="text-red-500 text-xs mb-1">{formError.newPassword}</p>}
               <div className="flex items-center">
                 <input
@@ -136,9 +131,29 @@ export const Setting = () => {
                 value={loading ? "Menyimpan.." : "Ubah"}
               />
             </div>
+
+            <div className="flex flex-col items-center mt-6">
+              {!auth.isVerified && (
+                <div className="text-center mb-4 p-4 bg-yellow-100 text-yellow-800 rounded-md shadow-md">
+                  <p className="text-sm font-medium">
+                    Akun Anda belum terverifikasi. Harap periksa email Anda dan verifikasi akun Anda.
+                  </p>
+                </div>
+              )}
+              {!auth.isVerified && (
+                <button 
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition-colors duration-300"
+                  onClick={() => navigate('/verify-user')}
+                >
+                  Verifikasi Akun
+                </button>
+              )}
+            </div>
+
           </form>
         </div>
       </div>
     </div>
+  </div>
   );
 };

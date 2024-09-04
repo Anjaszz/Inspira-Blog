@@ -93,34 +93,38 @@ export const DetailPost = () => {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="flex gap-4 mb-6">
-        <button className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md shadow-md hover:bg-gray-400 transition duration-300 flex items-center" onClick={() => navigate(-1)}>
-          <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-          Go Back
-        </button>
+      <button
+      className="absolute bg-blue-500 top-20 left-4 flex items-center text-white hover:bg-white hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 px-4 py-2 transition-transform transform hover:scale-105 active:scale-75 rounded-lg shadow-md hover:shadow-lg"
+      onClick={() => navigate(-1)}
+    >
+      <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+      Go Back
+    </button>
         <button 
-        className="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-300 flex items-center" onClick={() => navigate(`/post/update-post/${PostId}`)}>
+        className="absolute right-4 bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-300 flex items-center" onClick={() => navigate(`/post/update-post/${PostId}`)}>
           <FontAwesomeIcon icon={faEdit} className="mr-2" />
           Update Post
         </button>
         <button 
-        className="bg-red-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-700 transition duration-300 flex items-center"
+        className="absolute right-44 bg-red-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-700 transition duration-300 flex items-center"
         onClick={() => {openModal(post)}}
         >
           <FontAwesomeIcon icon={faTrash} className="mr-2" />
           Delete Post
         </button>
       </div>
-      <div className="bg-white p-8 rounded-md shadow-lg">
-        <h2 className="text-3xl font-semibold mb-4 text-gray-800">
+      <div className="bg-white p-8 rounded-md shadow-lg mt-20">
+      <h1 className="text-5xl font-bold mb-4 text-gray-800">
           {post.title}
-        </h2>
-        <h5 className="text-lg font-medium text-gray-600 mb-2">
+        </h1>
+      
+        <h5 className="text-lg font-medium text-gray-800 mb-2">Kategori : 
           {post.category.title}
         </h5>
-        <h5 className="text-lg font-medium text-gray-600 mb-2">
+        <h5 className="text-sm font-medium text-gray-600 mb-2">Dibuat Pada :
           {moment(post.updatedAt).format("YYYY-MM-DD-HH:mm:ss")}
         </h5>
-        <h5 className="text-lg font-medium text-gray-600 mb-4">
+        <h5 className="text-sm font-medium text-gray-600 mb-4">Di Update Pada :
           {moment(post.updatedAt).format("YYYY-MM-DD-HH:mm:ss")}
         </h5>
         <p className="text-gray-700 leading-relaxed mb-4">{post.desc}</p>

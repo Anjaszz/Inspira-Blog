@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "../../utils/AxiosInstances";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { LoadingPage } from '../../components/Loading/LoadingPage';
 
 const truncateText = (text, wordLimit) => {
   // Pastikan `text` tidak undefined atau null, jika iya set sebagai string kosong
@@ -149,7 +150,7 @@ export const PostList = () => {
         />
       </div>
 
-      {Loading ? "loading..." : 
+      {Loading ? <LoadingPage/> : 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" >
           {Posts.map((post) => (
             <div

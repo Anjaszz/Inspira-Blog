@@ -5,6 +5,7 @@ import axios from "../utils/AxiosInstances";
 import { ProfileValidator } from "../validator/ProfileValidator";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { LoadingPage } from "../components/Loading/LoadingPage";
 
 const initialFormData = { name: "", email: ""};
 const initialFormError = { name: "", email: "" };
@@ -37,6 +38,7 @@ export const Profile = () => {
           autoClose: true,
         });
         setFormData(initialFormData);
+        
         if(OldEmail !== formData.email){
           window.localStorage.removeItem("BlogData")
         }
@@ -94,6 +96,7 @@ export const Profile = () => {
 
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <form className="space-y-6" onSubmit={handleSubmit}>
+        {loading && <LoadingPage />}
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">Update Profile</h2>
 
           <div className="flex flex-col">

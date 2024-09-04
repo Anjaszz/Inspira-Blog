@@ -5,6 +5,7 @@ import { SignupValidator } from "../validator/SignUpValidator";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { LoadingPage } from "../components/Loading/LoadingPage";
 
 const initialFormData = { name: "", email: "", password: "", confirmPassword: "" };
 const initialFormError = { name: "", email: "", password: "", confirmPassword: "" };
@@ -57,28 +58,29 @@ export const Signup = () => {
   };
 
   return (
-<div className="min-h-screen flex items-center justify-center bg-gray-100">
-  <form className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md" onSubmit={handleSubmit}>
-    <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Daftar</h2>
+<div className=" min-h-screen flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1689521568081-c5baa6133bd0?q=80&w=1448&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
+  <form className="bg-gray-600 my-5 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 border border-gray-100 border-opacity-30 p-8 shadow-lg w-full max-w-md" onSubmit={handleSubmit}>
+  {loading && <LoadingPage />}
+    <h2 className="text-3xl font-bold text-white mb-6 text-center">Daftar</h2>
 
     <div className="mb-4">
-      <label className="block text-gray-700 font-medium mb-1">Nama</label>
+      <label className="block text-white font-medium mb-1">Nama</label>
       {formError.name && <p className="text-red-500 text-xs mb-1">{formError.name}</p>}
       <input
-        className={`w-full p-3 text-sm border ${formError.name ? "border-red-500" : "border-gray-300"} rounded-lg focus:outline-none focus:border-indigo-500`}
+        className={`w-full p-3 text-sm border ${formError.name ? "border-red-500" : "border-white"} rounded-lg focus:outline-none focus:border-indigo-500 bg-transparent text-white`}
         type="text"
         name="name"
-        placeholder="Jhon Doe"
+        placeholder="John Doe"
         onChange={handleChange}
         value={formData.name}
       />
     </div>
 
     <div className="mb-4">
-      <label className="block text-gray-700 font-medium mb-1">Email</label>
+      <label className="block text-white font-medium mb-1">Email</label>
       {formError.email && <p className="text-red-500 text-xs mb-1">{formError.email}</p>}
       <input
-        className={`w-full p-3 text-sm border ${formError.email ? "border-red-500" : "border-gray-300"} rounded-lg focus:outline-none focus:border-indigo-500`}
+        className={`w-full p-3 text-sm border ${formError.email ? "border-red-500" : "border-white"} rounded-lg focus:outline-none focus:border-indigo-500 bg-transparent text-white`}
         type="email"
         name="email"
         placeholder="Exmp: doe@gmail.com"
@@ -88,11 +90,11 @@ export const Signup = () => {
     </div>
 
     <div className="mb-4 relative">
-      <label className="block text-gray-700 font-medium mb-1">Password</label>
+      <label className="block text-white font-medium mb-1">Password</label>
       {formError.password && <p className="text-red-500 text-xs mb-1">{formError.password}</p>}
       <div className="relative">
         <input
-          className={`w-full p-3 text-sm border ${formError.password ? "border-red-500" : "border-gray-300"} rounded-lg focus:outline-none focus:border-indigo-500 pl-10`}
+          className={`w-full p-3 text-sm border ${formError.password ? "border-red-500" : "border-white"} rounded-lg focus:outline-none focus:border-indigo-500 bg-transparent text-white`}
           type={showPassword ? "text" : "password"}
           name="password"
           placeholder="***********"
@@ -100,7 +102,7 @@ export const Signup = () => {
           value={formData.password}
         />
         <span
-          className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+          className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-white"
           onClick={() => setShowPassword(!showPassword)}
         >
           <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -109,11 +111,11 @@ export const Signup = () => {
     </div>
 
     <div className="mb-6 relative">
-      <label className="block text-gray-700 font-medium mb-1">Confirm Password</label>
+      <label className="block text-white font-medium mb-1">Confirm Password</label>
       {formError.confirmPassword && <p className="text-red-500 text-xs mb-1">{formError.confirmPassword}</p>}
       <div className="relative">
         <input
-          className={`w-full p-3 text-sm border ${formError.confirmPassword ? "border-red-500" : "border-gray-300"} rounded-lg focus:outline-none focus:border-indigo-500 pl-10`}
+          className={`w-full p-3 text-sm border ${formError.confirmPassword ? "border-red-500" : "border-white"} rounded-lg focus:outline-none focus:border-indigo-500 bg-transparent text-white`}
           type={showConfirmPassword ? "text" : "password"}
           name="confirmPassword"
           placeholder="***********"
@@ -121,7 +123,7 @@ export const Signup = () => {
           value={formData.confirmPassword}
         />
         <span
-          className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+          className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-white"
           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
         >
           <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
@@ -129,11 +131,28 @@ export const Signup = () => {
       </div>
     </div>
 
-    <button type="submit" className="w-full bg-indigo-500 text-white font-medium py-3 rounded-lg hover:bg-indigo-600 transition duration-300" disabled={loading}>
+    <div className="mb-4 flex items-center">
+      <input
+        type="checkbox"
+        id="terms"
+        className="h-4 w-4 text-indigo-600 bg-gray-700 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2"
+        required
+      />
+      <label htmlFor="terms" className="ml-2 text-sm text-white">
+        I agree to the{" "}
+        <a href="/terms" className="text-blue-300 hover:text-blue-500 hover:underline">
+          terms and conditions
+        </a>
+      </label>
+    </div>
+
+    <button type="submit" className="bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out" disabled={loading}>
       {loading ? "Mendaftar..." : "Daftar"}
     </button>
   </form>
 </div>
+
+
 
   );
 };
