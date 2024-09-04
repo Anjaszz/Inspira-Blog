@@ -108,7 +108,7 @@ export const VerifyUser = () => {
         <form className="shadow-md px-4 py-6" onSubmit={handleSubmit}>
           <h2 className="text-2xl font-semibold text-gray-700 text-center mb-6">Verifikasi Akun</h2>
 
-          <div className="flex justify-center gap-8 mb-6 mx-6">
+          <div className="flex justify-center gap-4 mb-6 mx-2 mr-2">
             {[...Array(4)].map((_, index) => (
               <input
                 key={index}

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "../../utils/AxiosInstances";
 import { toast } from "react-toastify";
 import moment from "moment";
-import DeleteModal from "../../components/DeleteModal";
+import DeleteModal from "../../components/Modalbox/DeleteModal";
 import { LoadingPage } from "../../components/Loading/LoadingPage";
 
 export const DetailPost = () => {

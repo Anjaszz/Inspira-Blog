@@ -99,7 +99,7 @@ export const Login = () => {
         className="text-white hover:text-blue-300 hover:underline font-medium mt-2 block" 
         to="/forgot-password"
       >
-        Forgot Password?
+        Lupa Password?
       </Link>
     </div>
 

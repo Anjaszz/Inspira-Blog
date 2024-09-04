@@ -5,7 +5,7 @@ import  axios from "../../utils/AxiosInstances";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import moment from "moment/moment";
-import DeleteModal from "../../components/DeleteModal";
+import DeleteModal from "../../components/Modalbox/DeleteModal";
 
 export const CatList = () => {
   const navigate = useNavigate();

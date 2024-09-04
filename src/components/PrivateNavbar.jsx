@@ -23,7 +23,7 @@ export const PrivateNavbar = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-md p-4 flex justify-between items-center z-50">
+      <nav className="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 w-full z-50">
         <div className="text-2xl font-semibold text-gray-800">
           <NavLink to="/">InspiraBlog</NavLink>
         </div>
