@@ -20,21 +20,20 @@ const Home = () => {
         scrollRef.current.scrollLeft += 1;
       }
     };
-    const intervalId = setInterval(scroll, 50); // Scroll setiap 50ms
+    const intervalId = setInterval(scroll, 50); 
     return () => clearInterval(intervalId);
   }, []);
 
-  // Fallback image URL
+ 
   const fallbackImageUrl = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        setLoading(true); // Set loading to true before fetching data
-        const response = await axios.get("/posts/all", { params: { size: 6 } }); // Fetch posts
+        setLoading(true); 
+        const response = await axios.get("/posts/all", { params: { size: 6 } }); 
         const data = response.data.data.posts;
-        console.log(data);
-        // Fetch image URLs for each post if image URLs are not directly included
+       
         const postsWithImages = await Promise.all(
           data.map(async (post) => {
             if (post.file) {
@@ -43,7 +42,7 @@ const Home = () => {
                 post.imageUrl = fileResponse.data.data.url;
               } catch (error) {
                 console.error("Error fetching image URL:", error);
-                post.imageUrl = fallbackImageUrl; // Use fallback image URL
+                post.imageUrl = fallbackImageUrl;
               }
             } else {
               post.imageUrl = fallbackImageUrl; // Use fallback image URL
@@ -52,11 +51,11 @@ const Home = () => {
           })
         );
 
-        setPosts(postsWithImages); // Update state with posts and their images
+        setPosts(postsWithImages);
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
-        setLoading(false); // Set loading to false after fetching data
+        setLoading(false); 
       }
     };
 
@@ -65,7 +64,7 @@ const Home = () => {
 
   return (
     <>
-  <div className="flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 bg-gray-50 w-full">
+  <div className="flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 bg-gray-50 w-full mt-16">
   <div className="md:w-1/2 flex flex-col items-start">
     <h1 className="text-2xl sm:text-5xl font-bold text-gray-800 leading-tight">
       Selamat datang di <br />
@@ -187,7 +186,7 @@ const Home = () => {
               <input type="email" placeholder="Email" className="w-1/2 p-2 border border-gray-300 rounded" />
             </div>
             <textarea placeholder="Message" className="w-full p-4 border border-gray-300 rounded h-32"></textarea>
-            <button type="submit" className="bg-[#7695FF] text-white px-6 py-3 rounded">
+            <button type="submit" disabled className="bg-[#7695FF] text-white px-6 py-3 rounded">
               Kirim
             </button>
           </form>

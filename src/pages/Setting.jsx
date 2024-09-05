@@ -59,7 +59,7 @@ export const Setting = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-gray-100 mt-16">
     <div className="flex flex-grow flex-col p-6">
       <div className="flex items-start">
         <button
@@ -71,7 +71,7 @@ export const Setting = () => {
         </button>
       </div>
 
-      <div className="flex-grow flex items-center justify-center mt-16">
+      <div className="flex-grow flex items-center justify-center">
         <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
           <form className="space-y-4" onSubmit={handleSubmit}>
             <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">

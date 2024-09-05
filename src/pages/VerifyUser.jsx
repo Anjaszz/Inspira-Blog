@@ -104,16 +104,16 @@ export const VerifyUser = () => {
         </button>
 
       {/* Form Container */}
-      <div className="max-w-xl mx-auto border mt-20 rounded">
-        <form className="shadow-md px-4 py-6" onSubmit={handleSubmit}>
+      <div className="max-w-xl mx-auto border mt-36 rounded">
+        <form className=" shadow-md px-4 py-6" onSubmit={handleSubmit}>
           <h2 className="text-2xl font-semibold text-gray-700 text-center mb-6">Verifikasi Akun</h2>
 
-          <div className="flex justify-center gap-4 mb-6 mx-2 mr-2">
-            {[...Array(4)].map((_, index) => (
+          <div className="flex justify-center gap-3 mb-6 mr-3">
+            {[...Array(6)].map((_, index) => (
               <input
                 key={index}
                 ref={(el) => (inputRefs.current[index] = el)}
-                className={`w-12 h-12 text-center border rounded-md shadow-sm ${
+                className={`w-8 h-8 text-center border rounded-md shadow-sm ${
                   errorCode ? 'border-red-500' : 'focus:border-blue-500 focus:ring-blue-500'
                 }`}
                 type="text"

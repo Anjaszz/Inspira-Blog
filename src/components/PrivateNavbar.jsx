@@ -48,7 +48,7 @@ export const PrivateNavbar = () => {
             >
               Home
             </NavLink>
-            {(auth.role === 1 || auth.role === 2) && ( 
+            {(auth.role === 1 || auth.role === 3) && ( 
               <NavLink 
                 to="/categories" 
                 className="text-gray-700 hover:text-indigo-500 transition duration-300"
@@ -80,7 +80,11 @@ export const PrivateNavbar = () => {
             </NavLink>
             <button 
               className="flex items-center text-red-600 hover:text-indigo-500 transition duration-300"
-              onClick={() => setIsLogoutModalOpen(true)}
+              onClick={() => {
+                setIsLogoutModalOpen(true);
+                setIsOpen(false);
+              }}
+              
             >
               <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
               Logout

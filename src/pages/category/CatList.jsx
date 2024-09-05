@@ -111,7 +111,7 @@ setPageCount(tempPageCount)
   }
 
   return (
-    <div className="p-6 bg-[#FAF3E0] min-h-screen">
+    <div className="p-6 bg-[#FAF3E0] min-h-screen mt-16">
     <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
     <button
   className="bg-[#379777] text-white py-2 px-4 rounded-xl transition-transform transform hover:scale-105 hover:bg-[#31886b] focus:outline-none focus:ring-2 focus:ring-[#31886b] focus:ring-opacity-50 flex items-center justify-center w-2/5 sm:w-auto"

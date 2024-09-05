@@ -64,12 +64,14 @@ export const Profile = () => {
   useEffect(() =>{
    
       const GetUser = async () =>{
+        setLoading(true);
         try{
          
           const response = await axios.get(`/auth/current-user`);
           const data = response.data.data;
           setFormData({name: data.user.name, email: data.user.email })
           setOldEmail(data.user.email)
+          setLoading(false);
           }
           catch(error){
             setLoading(false)

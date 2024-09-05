@@ -58,7 +58,7 @@ export const Dashboard = () => {
 
 
   return (
-    <div className="p-4">
+    <div className="p-4 mt-16">
       <header className="flex flex-col sm:flex-row justify-between items-center bg-blue-600 text-white p-4 rounded-md">
         <div className="flex items-center space-x-2">
           <FontAwesomeIcon icon={faHome} />
