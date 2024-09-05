@@ -58,7 +58,7 @@ export const Signup = () => {
   };
 
   return (
-<div className=" min-h-screen flex items-center justify-center bg-[url('/background1.jpg')] bg-cover">
+<div className=" min-h-screen flex items-center justify-center bg-[url('/background1.jpg')] bg-cover mt-16">
   <form className="bg-gray-600 mx-4 my-5 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 border border-gray-100 border-opacity-30 p-8 shadow-lg w-full max-w-md" onSubmit={handleSubmit}>
   {loading && <LoadingPage />}
     <h2 className="text-3xl font-bold text-white mb-6 text-center">Daftar</h2>
